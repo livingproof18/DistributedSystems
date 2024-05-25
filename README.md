@@ -16,3 +16,8 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 ## Dependency Management
 
 The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+
+for this application to work, need to install the following files:
+amqp-client-5.21.0.jar
+slf4j-api-2.0.9.jar
+slf4j-simple-2.0.9.jar
