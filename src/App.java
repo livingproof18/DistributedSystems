@@ -1,39 +1,46 @@
 import java.util.Scanner;
+import java.util.Date;
 
 public class App {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
 
-        // Greet the user and ask for their department
         System.out.println("Hello, Welcome to IT in the Valley information system!");
         System.out.println("What can I help with? (type 'marketing' to proceed)");
         String department = scanner.nextLine().trim().toLowerCase();
 
-        boolean userInput = true;
-        while (userInput) {
-            // Check if the user input is for the marketing department
+        while (!department.equals("exit")) {
             if (department.equals("marketing")) {
-                System.out.println(
-                        "Would you like to send a 'single' ad or a 'batch' collection of advertisements to the editor?");
+                System.out.println("Choose 'single', 'batch' for RMI, or 'async' for RabbitMQ:");
                 String adType = scanner.nextLine().trim().toLowerCase();
 
-                // Decide which function to call based on user input
-                if (adType.equals("single")) {
-                    sendSingleAdvertToEditor();
-                } else if (adType.equals("batch")) {
-                    sendCollectionAdvertToEditor();
-                } else if (adType.equals("exit")) {
-                    userInput = false;
-                    System.out.println("Goodbye!");
-                } else {
-                    System.out.println("Invalid input. Please enter 'single' or 'batch'.");
+                switch (adType) {
+                    case "single":
+                        sendSingleAdvertToEditor();
+                        break;
+                    case "batch":
+                        sendCollectionAdvertToEditor();
+                        break;
+                    case "async":
+                        MarketingClient client = new MarketingClient();
+                        // Assuming you have a method to create an ad or get it from somewhere
+                        Advertisement ad = new Advertisement(102, "Async Ad Example", "AsyncCorp", new Date(),
+                                "Half-page", "Science", 46);
+                        client.sendAd(ad);
+                        break;
+                    case "exit":
+                        System.out.println("Exiting...");
+                        scanner.close();
+                        return;
+                    default:
+                        System.out.println("Invalid input. Please enter 'single', 'batch', or 'async'.");
+                        break;
                 }
-
             } else {
-                System.out.println("Sorry, I can only assist with marketing tasks right now.");
+                System.out.println("Invalid department. Try again or type 'exit' to leave.");
             }
+            department = scanner.nextLine().trim().toLowerCase();
         }
-
         scanner.close();
     }
 

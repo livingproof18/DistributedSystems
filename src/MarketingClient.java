@@ -61,6 +61,7 @@ public class MarketingClient {
     public void sendAd(Advertisement ad) {
         try {
             String message = adToJson(ad);
+            System.out.println("Messager sending to Consumer...".concat("\n"));
             Send.sendAd(message);
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
